@@ -1,18 +1,22 @@
 {
-  "name": "base",
+  "name": "testbot",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint",
+    "lint": "eslint --ignore-pattern eslint.config.js",
     "start": "node index.js",
     "test": "nodemon -x \"npm run lint && npm start\""
   },
   "keywords": [],
   "author": "Etevoldo",
   "license": "MIT",
-  "description": "",
+  "description": "testbot to learn discordjs",
   "devDependencies": {
     "eslint": "^9.14.0",
     "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.5"
   }
 }
