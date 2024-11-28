@@ -5,7 +5,8 @@
   "scripts": {
     "lint": "eslint --ignore-pattern eslint.config.js",
     "start": "node index.js",
-    "test": "nodemon -x \"npm run lint && npm start\""
+    "test": "nodemon -x \"npm run lint && npm start\"",
+    "deployCommands": "node deploy-commands.js"
   },
   "keywords": [],
   "author": "Etevoldo",
