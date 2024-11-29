@@ -39,8 +39,9 @@ async function deploy() {
     );
 
     const data = await rest.put(
-      Routes.applicationCommands(
+      Routes.applicationGuildCommands(
         process.env.APP_ID,
+        process.env.GUILD_ID
       ),
       { body: commands },
     );
