@@ -1,5 +1,6 @@
 'use strict';
 const { Events, Collection } = require('discord.js');
+const wait = require('node:timers/promises').setTimeout;
 
 async function execute(interaction) {
   if (!interaction.isChatInputCommand()) return;
@@ -27,13 +28,16 @@ async function execute(interaction) {
 
     if (now < expirationTime) {
       const expiredTimeStamp = Math.round(expirationTime / 1000);
-      return interaction.reply({
+      await interaction.reply({
         content: 'Please wait, you are on a cooldown for '
           + command.data.name
           + '. You can use it again '
           + `<t:${expiredTimeStamp}:R>`,
         ephemeral: true
       });
+      await wait(cooldownAmount);
+      await interaction.deleteReply();
+      return;
     }
   }
 
