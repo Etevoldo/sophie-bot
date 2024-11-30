@@ -3,6 +3,20 @@ const { Events, Collection } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 
 async function execute(interaction) {
+  if (interaction.isAutocomplete()) {
+    const command = interaction.client.commands.get(interaction.commandName);
+    if (!command) {
+      console.error(
+        `No command matching ${interaction.commandName} was found`
+      );
+      return;
+    }
+    try {
+      await command.autocomplete(interaction);
+    } catch (err) {
+      console.error(err);
+    }
+  }
   if (!interaction.isChatInputCommand()) return;
 
   const command = interaction.client.commands.get(interaction.commandName);
