@@ -1,11 +1,12 @@
 'use strict';
 const {
   SlashCommandBuilder,
-  SlashCommandStringOption
+  SlashCommandStringOption,
+  EmbedBuilder
 } = require('discord.js');
 
 // will move to its own file and import just graces
-const game = new SlashCommandStringOption()
+const gameOption = new SlashCommandStringOption()
   .setName('game')
   .setDescription('Select a game')
   .addChoices(
@@ -14,7 +15,7 @@ const game = new SlashCommandStringOption()
   )
   .setRequired(true);
 
-const character = new SlashCommandStringOption()
+const characterOption = new SlashCommandStringOption()
   .setName('character')
   .setDescription('Select a Character')
   .addChoices(
@@ -23,7 +24,7 @@ const character = new SlashCommandStringOption()
   )
   .setRequired(true);
 
-const arte = new SlashCommandStringOption()
+const arteOption = new SlashCommandStringOption()
   .setName('arte')
   .setDescription('Select an arte')
   .setRequired(true)
@@ -32,27 +33,34 @@ const arte = new SlashCommandStringOption()
 const data = new SlashCommandBuilder()
   .setName('arte')
   .setDescription('Get arte information')
-  .addStringOption(game)
-  .addStringOption(character)
-  .addStringOption(arte);
+  .addStringOption(gameOption)
+  .addStringOption(characterOption)
+  .addStringOption(arteOption);
 
 // soon to be moved, just for testing
 const charaArtes = {
-  'asbel': [
-    'demon fang',
-    'demon fist',
-    'void sword',
-  ],
-  'kidnamedflower': [
-    'eagle dive',
-    'lucent palisade',
-  ],
+  'asbel': {
+    'demon fang': {
+      'description': 'altered arte removed in the PlayStation 3 version; the level 5 mastery skill is replaced with a mastery skill for Demon Fist',
+      'CC cost': '2',
+      'JP name': '魔神剣 (Majinken)',
+      'Enemy Attributes': 'Inorganic, Fiend',
+      'Damage Type': 'Slash'
+    },
+    'demon fist': {},
+    'void sword': {}
+  },
+  'kidnamedflower': {
+    'eagle dive': {},
+    'lucent palisade': {}
+  },
 };
+
 
 async function autocomplete(interaction) {
   const charaValue = interaction.options.getString('character', true);
-  const choices = charaArtes[charaValue];
-  const focused = interaction.options.getFocused();
+  const choices = Object.keys(charaArtes[charaValue]);
+  const focused = interaction.options.getFocused().toLowerCase();
   const filtered = choices.filter(choice => choice.startsWith(focused));
   await interaction.respond(
     filtered.map(choice => ({ name : choice, value: choice }))
@@ -63,11 +71,25 @@ async function execute(interaction) {
   const gameValue = interaction.options.getString('game', true);
   const charaValue = interaction.options.getString('character', true);
   const arteValue = interaction.options.getString('arte', true);
-  interaction.reply(
-    `You selected ${gameValue} ${charaValue} ${arteValue}`
-  );
-}
 
-const category = 'talesData'
+  if (!charaArtes[charaValue][arteValue]) {
+    interaction.reply(`You selected ${gameValue} ${charaValue} ${arteValue}`);
+    return;
+  }
+
+  const fetchedarte = charaArtes[charaValue][arteValue];
+
+  let embed = new EmbedBuilder();
+  embed.setTitle(arteValue)
+  embed.setDescription(arte['description'])
+  embed.addFields(
+    { name: 'CC cost', value: arte['CC cost'], inline: true },
+    { name: 'JP name', value: arte['JP name'], inline: true },
+    { name: 'Enemy Attributes', value: arte['Enemy Attributes'], inline: true },
+    { name: 'Damage Type', value: arte['Damage Type'], inline: true },
+  );
+
+  await interaction.reply({ embeds: [embed] });
+}
 
 module.exports = { data, autocomplete, category, execute };
