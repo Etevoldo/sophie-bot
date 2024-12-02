@@ -1,3 +1,4 @@
+'use strict';
 const { REST, Routes } = require('discord.js');
 const dotenv = require('dotenv');
 dotenv.config();
