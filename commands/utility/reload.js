@@ -1,4 +1,3 @@
-const path = require('node:path');
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
@@ -17,12 +16,7 @@ module.exports = {
     if (!command) {
       return interaction.reply(`No comand with name ${commandName}`);
     }
-    if (!command.category) {
-      delete require.cache[require.resolve(`./${command.data.name}.js`)];
-    } else {
-      const commandPath = path.join('..' ,command.category, command.data.name);
-      delete require.cache[require.resolve(`${commandPath}.js`)];
-    }
+    delete require.cache[require.resolve(`./${command.data.name}.js`)];
 
     try {
       const newCommand = require(`./${command.data.name}.js`);
