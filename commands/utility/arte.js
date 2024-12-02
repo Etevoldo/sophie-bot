@@ -75,7 +75,7 @@ async function execute(interaction) {
     embed = arteEmbeds.createXilliaEmbed(arte);
   } else {
     interaction.reply(
-      `You options are invalid, maybe you chose the wrong character or game?`);
+      'You options are invalid, maybe you chose the wrong character or game?');
     return;
   }
 
