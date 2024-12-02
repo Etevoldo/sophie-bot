@@ -5,6 +5,7 @@ const globals = require('globals');
 module.exports = [
   js.configs.recommended,
   {
+    ignores: ["jsons/*"],
     rules: {
       "arrow-spacing": ["warn", { "before": true, "after": true }],
       "comma-spacing": "error",
@@ -45,10 +46,8 @@ module.exports = [
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.node
+        ...globals.node,
       },
-      ecmaVersion: "latest",
-      sourceType: "commonjs"
     }
   }
 ];
