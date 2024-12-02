@@ -16,6 +16,8 @@ for (const folder of commandFolders) {
 
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
+    // no reload comand for normal users
+    if (file === 'reload.js') continue;
     const command = require(filePath);
 
     if ('data' in command && 'execute' in command) {
@@ -39,9 +41,8 @@ async function deploy() {
     );
 
     const data = await rest.put(
-      Routes.applicationGuildCommands(
+      Routes.applicationCommands(
         process.env.APP_ID,
-        process.env.GUILD_ID
       ),
       { body: commands },
     );
