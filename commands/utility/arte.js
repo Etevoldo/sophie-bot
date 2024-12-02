@@ -2,8 +2,10 @@
 const {
   SlashCommandBuilder,
   SlashCommandStringOption,
-  EmbedBuilder
 } = require('discord.js');
+const { graces } = require('../../jsons/graces.js');
+const { xillia } = require('../../jsons/xillia.js');
+const arteEmbeds = require('../../embeds/arteEmbeds.js');
 
 // will move to its own file and import just graces
 const gameOption = new SlashCommandStringOption()
@@ -11,7 +13,7 @@ const gameOption = new SlashCommandStringOption()
   .setDescription('Select a game')
   .addChoices(
     { name: 'Graces', value: 'graces' },
-    { name: 'Vesperia', value: 'vesperia' }
+    { name: 'Xillia', value: 'xillia' },
   )
   .setRequired(true);
 
@@ -20,7 +22,8 @@ const characterOption = new SlashCommandStringOption()
   .setDescription('Select a Character')
   .addChoices(
     { name: 'Asbel', value: 'asbel' },
-    { name: 'Sophie', value: 'kidnamedflower' }
+    { name: 'Sophie', value: 'kidnamedflower' },
+    { name: 'Jude', value: 'jude' }
   )
   .setRequired(true);
 
@@ -37,33 +40,24 @@ const data = new SlashCommandBuilder()
   .addStringOption(characterOption)
   .addStringOption(arteOption);
 
-// soon to be moved, just for testing
-const charaArtes = {
-  'asbel': {
-    'demon fang': {
-      'description': 'altered arte removed in the PlayStation 3 version; the level 5 mastery skill is replaced with a mastery skill for Demon Fist',
-      'CC cost': '2',
-      'JP name': '魔神剣 (Majinken)',
-      'Enemy Attributes': 'Inorganic, Fiend',
-      'Damage Type': 'Slash'
-    },
-    'demon fist': {},
-    'void sword': {}
-  },
-  'kidnamedflower': {
-    'eagle dive': {},
-    'lucent palisade': {}
-  },
-};
-
-
 async function autocomplete(interaction) {
+  // only 25 options to autocomplete
+  const BASE_TYPE_MAX_LENGTH = 25;
   const charaValue = interaction.options.getString('character', true);
-  const choices = Object.keys(charaArtes[charaValue]);
+  const gameValue = interaction.options.getString('game', true);
+
+  let choices = [];
+  if (gameValue === 'graces') {
+    choices = Object.keys(graces[charaValue]);
+  }
+  else if (gameValue === 'xillia') {
+    choices = Object.keys(xillia[charaValue]);
+  }
   const focused = interaction.options.getFocused().toLowerCase();
   const filtered = choices.filter(choice => choice.startsWith(focused));
+  const filteredReduced = filtered.splice(0, BASE_TYPE_MAX_LENGTH);
   await interaction.respond(
-    filtered.map(choice => ({ name : choice, value: choice }))
+    filteredReduced.map(choice => ({ name : choice, value: choice }))
   );
 }
 
@@ -72,24 +66,20 @@ async function execute(interaction) {
   const charaValue = interaction.options.getString('character', true);
   const arteValue = interaction.options.getString('arte', true);
 
-  if (!charaArtes[charaValue][arteValue]) {
-    interaction.reply(`You selected ${gameValue} ${charaValue} ${arteValue}`);
+  let embed;
+  if (gameValue === 'graces' && graces[charaValue][arteValue]) {
+    const arte = graces[charaValue][arteValue];
+    embed = arteEmbeds.createGracesEmbed(arte);
+  } else if (gameValue === 'xillia' && xillia[charaValue][arteValue]) {
+    const arte = xillia[charaValue][arteValue];
+    embed = arteEmbeds.createXilliaEmbed(arte);
+  } else {
+    interaction.reply(
+      `You options are invalid, maybe you chose the wrong character or game?`);
     return;
   }
 
-  const fetchedarte = charaArtes[charaValue][arteValue];
-
-  let embed = new EmbedBuilder();
-  embed.setTitle(arteValue)
-  embed.setDescription(arte['description'])
-  embed.addFields(
-    { name: 'CC cost', value: arte['CC cost'], inline: true },
-    { name: 'JP name', value: arte['JP name'], inline: true },
-    { name: 'Enemy Attributes', value: arte['Enemy Attributes'], inline: true },
-    { name: 'Damage Type', value: arte['Damage Type'], inline: true },
-  );
-
-  await interaction.reply({ embeds: [embed] });
+  return await interaction.reply({ embeds: [embed] });
 }
 
-module.exports = { data, autocomplete, category, execute };
+module.exports = { data, autocomplete, execute };
