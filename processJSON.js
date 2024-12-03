@@ -5,7 +5,7 @@ const table = require('html-table-to-json');
 const outputName = process.argv[2];
 
 try {
-  const rawJsonPath = path.join(__dirname, 'input.json');
+  const rawJsonPath = path.join(__dirname, 'input.html');
   let rawJSON = (fs.readFileSync(rawJsonPath)).toString();
   rawJSON = rawJSON.replaceAll('&nbsp;', ' ');
   rawJSON = rawJSON.replaceAll(/\[.\]/g, '');
