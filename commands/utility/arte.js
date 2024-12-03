@@ -53,6 +53,7 @@ async function autocomplete(interaction) {
   else if (gameValue === 'xillia') {
     choices = Object.keys(xillia[charaValue]);
   }
+  // TODO: if no game[character] property is found, default with empty array
   const focused = interaction.options.getFocused().toLowerCase();
   const filtered = choices.filter(choice => choice.startsWith(focused));
   const filteredReduced = filtered.splice(0, BASE_TYPE_MAX_LENGTH);
@@ -74,9 +75,8 @@ async function execute(interaction) {
     const arte = xillia[charaValue][arteValue];
     embed = arteEmbeds.createXilliaEmbed(arte);
   } else {
-    interaction.reply(
+    return await interaction.reply(
       'You options are invalid, maybe you chose the wrong character or game?');
-    return;
   }
 
   return await interaction.reply({ embeds: [embed] });
