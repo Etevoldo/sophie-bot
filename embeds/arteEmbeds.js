@@ -51,7 +51,7 @@ function createXilliaEmbed(arte) {
       },
       {
         name: 'Sub-Status Attributes',
-        value: arte['Sub-Status Attributes'],
+        value: arte['Sub-Status Attributes'] ?? '-',
         inline: true
       },
       {
@@ -68,7 +68,7 @@ function createXilliaEmbed(arte) {
       },
       {
         name: 'TP Cost',
-        value: arte['TP Cost'],
+        value: arte['TP Cost'] ?? '-',
         inline: true
       },
       {
