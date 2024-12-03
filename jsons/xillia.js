@@ -442,6 +442,52 @@ const xillia = {
       "TP Cost": "7",
       "Requirements": "- the Milla Sync skill must be equipped\n- replaces Reaper's Toll linked with Milla Maxwell",
       "Description": "-"
+    },
+    "savage roar": {
+      "Arte Name": "Savage Roar",
+      "Enabled Effects": "Knockdown",
+      "Elemental Attributes": "-",
+      "Damage Effect": "-",
+      "Damage Spread": "4.00 x 12.00 x 4",
+      "Total Damage (%)": "1200",
+      "Max Hits": "5",
+      "TP Cost": "30",
+      "Requirements": "Lilium Orb: Orb 2 Node 2",
+      "Description": "-"
+    },
+    "shattering demon fist": {
+      "Arte Name": "Shattering Demon Fist",
+      "Enabled Effects": "Stand Up, Knockdown",
+      "Elemental Attributes": "-",
+      "Damage Effect": "-",
+      "Damage Spread": "7.50 x 1",
+      "Total Damage (%)": "750",
+      "Max Hits": "1",
+      "TP Cost": "30",
+      "Requirements": "Event: acquire the Arte Tome: \"Tremorous Fist\" valuable after completing the game",
+      "Description": "-"
+    },
+    "final fury": {
+      "Arte Name": "Final Fury",
+      "Elemental Attributes": "-",
+      "Damage Effect": "-",
+      "Damage Spread": "?",
+      "Total Damage (%)": "4500",
+      "Max Hits": "13",
+      "Requirements": "Over Limit mode must be active\n- activated by using Savage Roar and holding the Attack button",
+      "Description": "-",
+      "Enabled Effects": "-"
+    },
+    "tiger blade sigma": {
+      "Arte Name": "Tiger Blade Sigma",
+      "Elemental Attributes": "-",
+      "Damage Effect": "-",
+      "Damage Spread": "?",
+      "Total Damage (%)": "4800",
+      "Max Hits": "7",
+      "Requirements": "available if a clear save file exists on the player's profile\nJude Mathis must be linked with Milla Maxwell\nOver Limit mode must be active\nactivated by using Shattering Demon Fist and holding the Attack button",
+      "Description": "-",
+      "Enabled Effects": "-"
     }
   }
 }
