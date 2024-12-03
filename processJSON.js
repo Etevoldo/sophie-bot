@@ -2,17 +2,14 @@ const fs = require('node:fs');
 const path = require('node:path');
 const table = require('html-table-to-json');
 
-const outputName = process.argv[2];
-
 try {
   const rawJsonPath = path.join(__dirname, 'input.html');
   let rawJSON = (fs.readFileSync(rawJsonPath)).toString();
   rawJSON = rawJSON.replaceAll('&nbsp;', ' ');
   rawJSON = rawJSON.replaceAll(/\[.\]/g, '');
   const OBJArray = (table.parse(rawJSON)).results[0];
-  //const OBJArray = JSON.parse(rawJSON);
 
-  const doneDocument = { [outputName]: {} };
+  const doneDocument = {};
 
   for (let i = 0; i < OBJArray.length; i++) {
     // cut kanji
@@ -42,7 +39,7 @@ try {
     OBJArray[i]['Damage Effect']
       = separateWords(OBJArray[i]['Damage Effect'], damageEffects);
 
-    doneDocument[outputName][cutName.toLowerCase()] = OBJArray[i];
+    doneDocument[cutName.toLowerCase()] = OBJArray[i];
 
     let nextObjLength;
     // end loop if it's the end of the array, otherwise check if next obj exists
