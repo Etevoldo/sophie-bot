@@ -16,6 +16,7 @@
   "devDependencies": {
     "eslint": "^9.14.0",
     "globals": "^15.13.0",
+    "html-table-to-json": "^1.0.0",
     "nodemon": "^3.1.7"
   },
   "dependencies": {

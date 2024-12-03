@@ -1,14 +1,16 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const table = require('html-table-to-json');
 
 const outputName = process.argv[2];
 
 try {
-  const rawJsonPath = path.join(__dirname, 'jude.json');
+  const rawJsonPath = path.join(__dirname, 'input.json');
   let rawJSON = (fs.readFileSync(rawJsonPath)).toString();
   rawJSON = rawJSON.replaceAll('&nbsp;', ' ');
   rawJSON = rawJSON.replaceAll(/\[.\]/g, '');
-  const OBJArray = JSON.parse(rawJSON);
+  const OBJArray = (table.parse(rawJSON)).results[0];
+  //const OBJArray = JSON.parse(rawJSON);
 
   const doneDocument = { [outputName]: {} };
 
@@ -83,7 +85,7 @@ function separateWords(string, wordList) {
   }
   const curList = [];
   wordList.forEach(effect => {
-    if (string.includes(effect)) {
+    if (string?.includes(effect)) {
       curList.push(effect);
     }
   });
