@@ -7,6 +7,10 @@ const { graces } = require('../../jsons/graces.js');
 const { xillia } = require('../../jsons/xillia.js');
 const arteEmbeds = require('../../embeds/arteEmbeds.js');
 
+const gamesArtes = new Map();
+gamesArtes.set('graces', graces);
+gamesArtes.set('xillia', xillia);
+
 // will move to its own file and import just graces
 const gameOption = new SlashCommandStringOption()
   .setName('game')
@@ -20,12 +24,8 @@ const gameOption = new SlashCommandStringOption()
 const characterOption = new SlashCommandStringOption()
   .setName('character')
   .setDescription('Select a Character')
-  .addChoices(
-    { name: 'Asbel', value: 'asbel' },
-    { name: 'Sophie', value: 'kidnamedflower' },
-    { name: 'Jude', value: 'jude' }
-  )
-  .setRequired(true);
+  .setRequired(true)
+  .setAutocomplete(true);
 
 const arteOption = new SlashCommandStringOption()
   .setName('arte')
@@ -43,19 +43,23 @@ const data = new SlashCommandBuilder()
 async function autocomplete(interaction) {
   // only 25 options to autocomplete
   const BASE_TYPE_MAX_LENGTH = 25;
-  const charaValue = interaction.options.getString('character', true);
-  const gameValue = interaction.options.getString('game', true);
+  const focused = interaction.options.getFocused('true');
 
-  let choices = [];
-  if (gameValue === 'graces') {
-    choices = Object.keys(graces[charaValue]);
+  let choices;
+
+  const gameValue = interaction.options.getString('game', true);
+  if (focused.name === 'character') {
+    choices = Object.keys(gamesArtes.get(gameValue))
   }
-  else if (gameValue === 'xillia') {
-    choices = Object.keys(xillia[charaValue]);
+  else if (focused.name === 'arte') {
+    const charaValue = interaction.options.getString('character', true);
+    choices = Object.keys(gamesArtes.get(gameValue)[charaValue]);
+  } else {
+    choices = [];
   }
+
   // TODO: if no game[character] property is found, default with empty array
-  const focused = interaction.options.getFocused().toLowerCase();
-  const filtered = choices.filter(choice => choice.startsWith(focused));
+  const filtered = choices.filter(choice => choice.startsWith(focused.value));
   const filteredReduced = filtered.splice(0, BASE_TYPE_MAX_LENGTH);
   await interaction.respond(
     filteredReduced.map(choice => ({ name : choice, value: choice }))
