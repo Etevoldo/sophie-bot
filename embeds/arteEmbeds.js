@@ -35,18 +35,18 @@ function createGracesEmbed(arte) {
 }
 
 function createXilliaEmbed(arte) {
-  return new EmbedBuilder()
+  const embed = new EmbedBuilder()
     .setTitle(arte['Arte Name'])
     .setDescription(arte['Description'])
     .addFields(
       {
         name: 'Enabled Effects',
-        value: arte['Enabled Effects'],
+        value: arte['Enabled Effects'] ?? '-',
         inline: true
       },
       {
         name: 'Elemental Attributes',
-        value: arte['Elemental Attributes'],
+        value: arte['Elemental Attributes'] ?? '-',
         inline: true
       },
       {
@@ -56,10 +56,14 @@ function createXilliaEmbed(arte) {
       },
       {
         name: 'Damage Effect',
-        value: arte['Damage Effect'],
+        value: arte['Damage Effect'] ?? '-',
         inline: true
       },
-      { name: 'Damage Spread', value: arte['Damage Spread'], inline: true },
+      { 
+        name: 'Damage Spread',
+        value: arte['Damage Spread'] ?? '-',
+        inline: true 
+      },
       { name: 'Max Hits', value: arte['Max Hits'], inline: true },
       {
         name: 'Total Damage (%)',
@@ -73,9 +77,16 @@ function createXilliaEmbed(arte) {
       },
       {
         name: 'Requirements',
-        value: arte['Requirements'],
+        value: arte['Requirements'] ?? '-',
       },
     );
+  if (arte['Casting Time (seconds)'])  {
+    embed.addFields({ 
+      name: 'Casting Time (seconds)',
+      value: arte['Casting Time (seconds)'] 
+    });
+  }
+  return embed;
 }
 
 module.exports = { createGracesEmbed, createXilliaEmbed };
