@@ -49,11 +49,11 @@ async function autocomplete(interaction) {
 
   const gameValue = interaction.options.getString('game', true);
   if (focused.name === 'character') {
-    choices = Object.keys(gamesArtes.get(gameValue))
+    choices = Object.keys(gamesArtes.get(gameValue)) ?? [];
   }
   else if (focused.name === 'arte') {
     const charaValue = interaction.options.getString('character', true);
-    choices = Object.keys(gamesArtes.get(gameValue)[charaValue]);
+    choices = Object.keys(gamesArtes.get(gameValue)[charaValue] ?? {});
   } else {
     choices = [];
   }
@@ -71,19 +71,30 @@ async function execute(interaction) {
   const charaValue = interaction.options.getString('character', true);
   const arteValue = interaction.options.getString('arte', true);
 
-  let embed;
-  if (gameValue === 'graces' && graces[charaValue][arteValue]) {
-    const arte = graces[charaValue][arteValue];
-    embed = arteEmbeds.createGracesEmbed(arte);
-  } else if (gameValue === 'xillia' && xillia[charaValue][arteValue]) {
-    const arte = xillia[charaValue][arteValue];
-    embed = arteEmbeds.createXilliaEmbed(arte);
-  } else {
+  const gameArtesList = gamesArtes.get(gameValue) ?? {};
+
+  if (!isValidQuery(gameArtesList, charaValue, arteValue)) {
     return await interaction.reply(
       'You options are invalid, maybe you chose the wrong character or game?');
   }
 
+  const arte = gameArtesList[charaValue][arteValue];
+
+  let embed;
+  switch (gameValue) {
+  case 'graces': embed = arteEmbeds.createGracesEmbed(arte); break;
+  case 'xillia': embed = arteEmbeds.createXilliaEmbed(arte); break;
+  }
+
   return await interaction.reply({ embeds: [embed] });
+}
+
+// helper function to see if character/arte exists because annoying
+// typeerrors with no trivial solution
+function isValidQuery(arteList, charaValue, arteValue) {
+  if (!arteList[charaValue]) return false;
+  if (!arteList[charaValue][arteValue]) return false;
+  return true;
 }
 
 module.exports = { data, autocomplete, execute };
