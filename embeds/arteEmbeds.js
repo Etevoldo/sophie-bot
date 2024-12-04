@@ -59,10 +59,10 @@ function createXilliaEmbed(arte) {
         value: arte['Damage Effect'] ?? '-',
         inline: true
       },
-      { 
+      {
         name: 'Damage Spread',
         value: arte['Damage Spread'] ?? '-',
-        inline: true 
+        inline: true
       },
       { name: 'Max Hits', value: arte['Max Hits'], inline: true },
       {
@@ -80,10 +80,10 @@ function createXilliaEmbed(arte) {
         value: arte['Requirements'] ?? '-',
       },
     );
-  if (arte['Casting Time (seconds)'])  {
-    embed.addFields({ 
+  if (arte['Casting Time (seconds)']) {
+    embed.addFields({
       name: 'Casting Time (seconds)',
-      value: arte['Casting Time (seconds)'] 
+      value: arte['Casting Time (seconds)']
     });
   }
   return embed;
