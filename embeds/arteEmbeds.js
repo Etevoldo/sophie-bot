@@ -34,10 +34,22 @@ function createGracesEmbed(arte) {
     );
 }
 
-function createXilliaEmbed(arte) {
+function createXilliaEmbed(arte, charaValue) {
+  function getThumb(character) {
+    switch (character) {
+      case 'jude': return 'https://static.wikia.nocookie.net/aselia/images/2/2d/Jude_Artes_Portrait_%281%29.jpg'
+      case 'milla': return 'https://static.wikia.nocookie.net/aselia/images/3/3e/Milla_Artes_Portrait_%281%29.jpg'
+      case 'alvin': return 'https://static.wikia.nocookie.net/aselia/images/7/76/Alvin_Artes_Portrait_%281%29.jpg'
+      case 'elize': return 'https://static.wikia.nocookie.net/aselia/images/8/8a/Elize_Artes_Portrait_%281%29.jpg'
+      case 'rowen': return 'https://static.wikia.nocookie.net/aselia/images/b/b6/Rowen_Artes_Portrait_%281%29.jpg'
+      case 'leia': return 'https://static.wikia.nocookie.net/aselia/images/1/12/Leia_Artes_Portrait_%281%29.jpg'
+    }
+  }
+
   const embed = new EmbedBuilder()
     .setTitle(arte['Arte Name'])
     .setDescription(arte['Description'])
+    .setThumbnail(getThumb(charaValue))
     .addFields(
       {
         name: 'Enabled Effects',
