@@ -3,6 +3,7 @@ const { EmbedBuilder } = require('discord.js');
 
 function createGracesEmbed(arte) {
   return new EmbedBuilder()
+    .setColor(0x367bac)
     .setTitle(arte['Arte Name'])
     .setDescription(arte['Notes'])
     .addFields(
@@ -47,6 +48,7 @@ function createXilliaEmbed(arte, charaValue) {
   }
 
   const embed = new EmbedBuilder()
+    .setColor(0x00a180)
     .setTitle(arte['Arte Name'])
     .setDescription(arte['Description'])
     .setThumbnail(getThumb(charaValue))
