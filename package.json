@@ -7,7 +7,7 @@
     "start": "node index.js",
     "test": "nodemon -x \"npm run lint && npm start\"",
     "deployCommands": "node deploy-commands.js",
-    "processJSON": "node processJSON.js"
+    "processJSON": "node processing/processJSON.js"
   },
   "keywords": [],
   "author": "Etevoldo",
