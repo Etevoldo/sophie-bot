@@ -60,11 +60,13 @@ function createGracesEmbed(arte, charaValue) {
       inline: true
     });
   }
-  embed.addFields({
-    name: 'Title Acquisition[Wii/PS3]',
-    value: arte['Title Acquisition[Wii/PS3]'],
-    inline: false
-  });
+  if (arte['Title Acquisition[Wii/PS3]']) {
+    embed.addFields({
+      name: 'Title Acquisition[Wii/PS3]',
+      value: arte['Title Acquisition[Wii/PS3]'],
+      inline: true
+    });
+  }
   if (arte['Mastery Skill Effect']) {
     embed.addFields({
       name: 'Mastery Skill Effect',
