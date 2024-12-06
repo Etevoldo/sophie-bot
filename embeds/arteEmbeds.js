@@ -1,49 +1,85 @@
 'use strict';
 const { EmbedBuilder } = require('discord.js');
 
-function createGracesEmbed(arte) {
-  return new EmbedBuilder()
+function createGracesEmbed(arte, charaValue) {
+  const thumbnails = {
+    'kidnamedflower': 'https://static.wikia.nocookie.net/aselia/images/6/69/Sophie_Artes_Portrait.jpg'
+  };
+
+  const embed = new EmbedBuilder()
     .setColor(0x367bac)
+    .setThumbnail(thumbnails[charaValue])
     .setTitle(arte['Arte Name'])
-    .setDescription(arte['Notes'])
-    .addFields(
-      { name: 'JP Name', value: arte['JP Name'], inline: true },
-      { name: 'CC Cost', value: arte['CC Cost'], inline: true },
-      { name: 'Enabled Effects', value: arte['Enabled Effects'], inline: true },
-      {
-        name: 'Enemy Attributes',
-        value: arte['Enemy Attributes'],
-        inline: true
-      },
-      { name: 'Damage Type', value: arte['Damage Type'], inline: true },
-      { name: 'Max Hits', value: arte['Max Hits'], inline: true },
-      {
-        name: 'Total Damage (%)',
-        value: arte['Total Damage (%)'],
-        inline: true
-      },
-      {
-        name: 'Damage Multiplier (per hit)',
-        value: arte['Damage Multiplier (per hit)'],
-        inline: true
-      },
-      {
-        name: 'Mastery Titles',
-        value: 'Adept: ' + (arte['Mastery'][0] ?? '-') + ' uses\n' +
-          'Master: ' + (arte['Mastery'][1] ?? '-')+ ' uses',
-        inline: true
-      },
-      {
-        name: 'Title Acquisition[Wii/PS3]',
-        value: arte['Title Acquisition[Wii/PS3]'],
-        inline: false
-      },
-      {
-        name: 'Mastery Skill Effect',
-        value: arte['Mastery Skill Effect'],
-        inline: true
-      },
-    );
+    .setDescription(arte['Description'] ?? ' ');
+
+  if (arte['Casting Time (seconds)']) {
+    embed.addFields({
+      name: 'Casting Time (seconds)',
+      value: arte['Casting Time (seconds)'],
+      inline: true,
+    });
+  }
+  if (arte['CC Cost']) {
+    embed.addFields({
+      name: 'CC Cost',
+      value: arte['CC Cost'],
+      inline: true,
+    });
+  }
+  if (arte['Enabled Effects']) {
+    embed.addFields({
+      name: 'Enabled Effects',
+      value: arte['Enabled Effects'],
+      inline: true,
+    });
+  }
+  embed.addFields(
+    {
+      name: 'Enemy Attributes',
+      value: arte['Enemy Attributes'],
+      inline: true
+    },
+    { name: 'Damage Type', value: arte['Damage Type'], inline: true },
+    { name: 'Max Hits', value: arte['Max Hits'], inline: true },
+    {
+      name: 'Total Damage (%)',
+      value: arte['Total Damage (%)'],
+      inline: true
+    },
+    {
+      name: 'Damage Multiplier (per hit)',
+      value: arte['Damage Multiplier (per hit)'],
+      inline: true
+    }
+  );
+  if (arte['Mastery']) {
+    embed.addFields({
+      name: 'Mastery Titles',
+      value: 'Adept: ' + (arte['Mastery'][0]) + ' uses\n' +
+        'Master: ' + (arte['Mastery'][1]) + ' uses',
+      inline: true
+    });
+  }
+  embed.addFields({
+    name: 'Title Acquisition[Wii/PS3]',
+    value: arte['Title Acquisition[Wii/PS3]'],
+    inline: false
+  });
+  if (arte['Mastery Skill Effect']) {
+    embed.addFields({
+      name: 'Mastery Skill Effect',
+      value: arte['Mastery Skill Effect'],
+      inline: true
+    });
+  }
+  if (arte['Requirements']) {
+    embed.addFields({
+      name: 'Requirements',
+      value: arte['Requirements'],
+      inline: true
+    });
+  }
+  return embed;
 }
 
 function createXilliaEmbed(arte, charaValue) {
