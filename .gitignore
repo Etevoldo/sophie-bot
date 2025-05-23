@@ -1,6 +1,5 @@
+processing
 node_modules
 .env
 
-# input and output parser for html tables
-input.html
-output.json
+.vscode
