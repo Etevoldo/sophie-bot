@@ -3,15 +3,35 @@ const { EmbedBuilder } = require('discord.js');
 
 function createGracesEmbed(arte, charaValue) {
   const thumbnails = {
-    'kidnamedflower': 'https://static.wikia.nocookie.net/aselia/images/6/69/Sophie_Artes_Portrait.jpg'
+    'kidnamedflower': 'https://static.wikia.nocookie.net/aselia/images/6/69/Sophie_Artes_Portrait.jpg',
+    'asbel': 'https://static.wikia.nocookie.net/aselia/images/0/0a/Asbel_Artes_Portrait.jpg/revision/latest?cb=20170302230840'
   };
 
   const embed = new EmbedBuilder()
-    .setColor(0x367bac)
+    .setColor(0x1a7daa)
     .setThumbnail(thumbnails[charaValue])
     .setTitle(arte['Arte Name'])
     .setDescription(arte['Description'] ?? ' ');
 
+  embed.addFields(
+    {
+      name: 'Enemy Attributes',
+      value: arte['Enemy Attributes'],
+      inline: true
+    },
+    { name: 'Damage Type', value: arte['Damage Type'], inline: true },
+    { name: 'Max Hits', value: arte['Max Hits'], inline: true },
+    {
+      name: 'Total Damage (%)',
+      value: arte['Total Damage (%)'],
+      inline: true
+    },
+    {
+      name: 'Damage Multiplier (per hit)',
+      value: arte['Damage Multiplier (per hit)'],
+      inline: true
+    }
+  );
   if (arte['Casting Time (seconds)']) {
     embed.addFields({
       name: 'Casting Time (seconds)',
@@ -33,44 +53,17 @@ function createGracesEmbed(arte, charaValue) {
       inline: true,
     });
   }
-  embed.addFields(
-    {
-      name: 'Enemy Attributes',
-      value: arte['Enemy Attributes'],
-      inline: true
-    },
-    { name: 'Damage Type', value: arte['Damage Type'], inline: true },
-    { name: 'Max Hits', value: arte['Max Hits'], inline: true },
-    {
-      name: 'Total Damage (%)',
-      value: arte['Total Damage (%)'],
-      inline: true
-    },
-    {
-      name: 'Damage Multiplier (per hit)',
-      value: arte['Damage Multiplier (per hit)'],
-      inline: true
-    }
-  );
-  if (arte['Mastery']) {
+  if (arte['Description']) {
     embed.addFields({
-      name: 'Mastery Titles',
-      value: 'Adept: ' + (arte['Mastery'][0]) + ' uses\n' +
-        'Master: ' + (arte['Mastery'][1]) + ' uses',
-      inline: true
+      name: 'Description',
+      value: arte['Description'],
+      inline: false
     });
   }
-  if (arte['Title Acquisition[Wii/PS3]']) {
+  if (arte['Req. for mastery']) {
     embed.addFields({
-      name: 'Title Acquisition[Wii/PS3]',
-      value: arte['Title Acquisition[Wii/PS3]'],
-      inline: true
-    });
-  }
-  if (arte['Mastery Skill Effect']) {
-    embed.addFields({
-      name: 'Mastery Skill Effect',
-      value: arte['Mastery Skill Effect'],
+      name: 'Req. for mastery',
+      value: arte['Req. for mastery'],
       inline: true
     });
   }
@@ -81,9 +74,21 @@ function createGracesEmbed(arte, charaValue) {
       inline: true
     });
   }
+  if (arte['Title Acquisition[Wii/PS3]']) {
+    embed.addFields({
+      name: 'Title Acquisition[Wii/PS3]',
+      value: arte['Title Acquisition[Wii/PS3]'],
+      inline: false
+    });
+  }
+  embed.setFooter({
+    text: "Second value in \"Total Damage\" and \"Damage multiplier\" "
+      + "are the PS3/Remastered version values\n"
+      + "Bold values are Charge Plus skill additions"
+  });
   return embed;
 }
-
+// "Req. for mastery:"
 function createXilliaEmbed(arte, charaValue) {
   const thumbnails = {
     'jude': 'https://static.wikia.nocookie.net/aselia/images/2/2d/Jude_Artes_Portrait_%281%29.jpg',
