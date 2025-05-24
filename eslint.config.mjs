@@ -1,11 +1,14 @@
-// eslint.config.js
-const js = require('@eslint/js');
-const globals = require('globals');
+import js from '@eslint/js';
+import globals from 'globals';
+import { defineConfig } from 'eslint/config';
 
-module.exports = [
-  js.configs.recommended,
+
+export default defineConfig([
+  { files: ['**/*.{js,mjs,cjs}'], plugins: { js }, extends: ['js/recommended'] },
+  { files: ['**/*.js'], languageOptions: { sourceType: 'commonjs', globals: { ...globals.node } } },
+  { files: ['**/*.{js,mjs,cjs}'], languageOptions: { globals: globals.browser } },
   {
-    ignores: ["jsons/**", "processing/**"],
+    ignores: ["jsons/", "processing/*", "eslint.config.*"],
     rules: {
       "arrow-spacing": ["warn", { "before": true, "after": true }],
       "comma-spacing": "error",
@@ -43,12 +46,5 @@ module.exports = [
       "spaced-comment": "error",
       "yoda": "error"
     },
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-      },
-    }
   }
-];
-
+]);

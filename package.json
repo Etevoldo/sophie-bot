@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --ignore-pattern eslint.config.js",
+    "lint": "eslint",
     "start": "node index.js",
     "test": "nodemon -x \"npm run lint && npm start\"",
     "deployCommands": "node deploy-commands.js",
@@ -14,8 +14,9 @@
   "license": "MIT",
   "description": "testbot to learn discordjs",
   "devDependencies": {
-    "eslint": "^9.14.0",
-    "globals": "^15.13.0",
+    "@eslint/js": "^9.27.0",
+    "eslint": "^9.27.0",
+    "globals": "^15.15.0",
     "html-table-to-json": "^1.0.0",
     "nodemon": "^3.1.7"
   },
