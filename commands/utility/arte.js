@@ -82,8 +82,8 @@ async function execute(interaction) {
 
   let embed;
   switch (gameValue) {
-  case 'graces': embed = arteEmbeds.createGracesEmbed(arte); break;
-  case 'xillia': embed = arteEmbeds.createXilliaEmbed(arte); break;
+  case 'graces': embed = arteEmbeds.createGracesEmbed(arte, charaValue); break;
+  case 'xillia': embed = arteEmbeds.createXilliaEmbed(arte, charaValue); break;
   }
 
   return await interaction.reply({ embeds: [embed] });
