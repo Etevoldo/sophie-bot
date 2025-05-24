@@ -5,7 +5,7 @@ const globals = require('globals');
 module.exports = [
   js.configs.recommended,
   {
-    ignores: ["jsons/*"],
+    ignores: ["jsons/**", "processing/**"],
     rules: {
       "arrow-spacing": ["warn", { "before": true, "after": true }],
       "comma-spacing": "error",
