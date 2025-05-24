@@ -82,9 +82,9 @@ function createGracesEmbed(arte, charaValue) {
     });
   }
   embed.setFooter({
-    text: "Second value in \"Total Damage\" and \"Damage multiplier\" "
-      + "are the PS3/Remastered version values\n"
-      + "Bold values are Charge Plus skill additions"
+    text: 'Second value in "Total Damage" and "Damage multiplier" '
+      + 'are the PS3/Remastered version values\n'
+      + 'Bold values are Charge Plus skill additions'
   });
   return embed;
 }
