@@ -1,13 +1,13 @@
 # incomplete stuff
 
 # graces
-- [] Accelerate Mode artes (all)
-- [] mystics
-  - [] pascal
-  - [] hubert
-  - [] cheria
-  - [] richard
-- [] titles
+- [ ] Accelerate Mode artes (all)
+- [ ] mystics
+  - [ ] pascal
+  - [ ] hubert
+  - [ ] cheria
+  - [ ] richard
+- [ ] titles
 
 
 # copyright stuff
