@@ -1,8 +1,16 @@
+const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const dotenv = require('dotenv');
 dotenv.config();
+
+http.createServer((req, res) => {
+  const { method, url } = req;
+  req.on('error', err => console.error(err));
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('pong');
+}).listen(process.env.PORT);
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
