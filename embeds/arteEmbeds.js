@@ -3,8 +3,13 @@ const { EmbedBuilder } = require('discord.js');
 
 function createGracesEmbed(arte, charaValue) {
   const thumbnails = {
-    'kidnamedflower': 'https://static.wikia.nocookie.net/aselia/images/6/69/Sophie_Artes_Portrait.jpg',
-    'asbel': 'https://static.wikia.nocookie.net/aselia/images/0/0a/Asbel_Artes_Portrait.jpg/revision/latest?cb=20170302230840'
+    'sophie': 'https://static.wikia.nocookie.net/aselia/images/6/69/Sophie_Artes_Portrait.jpg',
+    'asbel': 'https://static.wikia.nocookie.net/aselia/images/0/0a/Asbel_Artes_Portrait.jpg/revision/latest?cb=20170302230840',
+    'hubert': 'https://static.wikia.nocookie.net/aselia/images/d/d3/Hubert_Artes_Portrait.jpg/revision/latest?cb=20170302231402',
+    'cheria': 'https://static.wikia.nocookie.net/aselia/images/5/56/Cheria_Artes_Portrait.jpg/revision/latest?cb=20170302230934',
+    'richard': 'https://static.wikia.nocookie.net/aselia/images/6/6c/Richard_Artes_Portrait.jpg/revision/latest?cb=20170302232352',
+    'malik': 'https://static.wikia.nocookie.net/aselia/images/d/dd/Malik_Artes_Portrait.jpg/revision/latest?cb=20170302231842',
+    'pascal': 'https://static.wikia.nocookie.net/aselia/images/3/3d/Pascal_Artes_Portrait.jpg/revision/latest?cb=20170302232142'
   };
 
   const embed = new EmbedBuilder()
