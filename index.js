@@ -6,9 +6,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 http.createServer((req, res) => {
-  const { method, url } = req;
   req.on('error', err => console.error(err));
-  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.end('pong');
 }).listen(process.env.PORT);
 
