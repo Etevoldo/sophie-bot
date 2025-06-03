@@ -108,55 +108,55 @@ function createXilliaEmbed(arte, charaValue) {
     .setColor(0x00a180)
     .setTitle(arte['Arte Name'])
     .setDescription(arte['Description'])
-    .setThumbnail(thumbnails[charaValue])
-    .addFields(
-      {
-        name: 'Enabled Effects',
-        value: arte['Enabled Effects'] ?? '-',
-        inline: true
-      },
-      {
-        name: 'Elemental Attributes',
-        value: arte['Elemental Attributes'] ?? '-',
-        inline: true
-      },
-      {
-        name: 'Sub-Status Attributes',
-        value: arte['Sub-Status Attributes'] ?? '-',
-        inline: true
-      },
-      {
-        name: 'Damage Effect',
-        value: arte['Damage Effect'] ?? '-',
-        inline: true
-      },
-      {
-        name: 'Damage Spread',
-        value: arte['Damage Spread'] ?? '-',
-        inline: true
-      },
-      { name: 'Max Hits', value: arte['Max Hits'], inline: true },
-      {
-        name: 'Total Damage (%)',
-        value: arte['Total Damage (%)'],
-        inline: true
-      },
-      {
-        name: 'TP Cost',
-        value: arte['TP Cost'] ?? '-',
-        inline: true
-      },
-      {
-        name: 'Requirements',
-        value: arte['Requirements'] ?? '-',
-      },
-    );
+    .setThumbnail(thumbnails[charaValue]);
+
+  embed.addFields(
+    {
+      name: 'Enabled Effects',
+      value: arte['Enabled Effects'] ?? '-',
+      inline: true
+    },
+    {
+      name: 'Elemental Attributes',
+      value: arte['Elemental Attributes'] ?? '-',
+      inline: true
+    },
+    {
+      name: 'Sub-Status Attributes',
+      value: arte['Sub-Status Attributes'] ?? '-',
+      inline: true
+    },
+    {
+      name: 'Damage Effect',
+      value: arte['Damage Effect'] ?? '-',
+      inline: true
+    },
+    {
+      name: 'Damage Spread',
+      value: arte['Damage Spread'] ?? '-',
+      inline: true
+    },
+    { name: 'Max Hits', value: arte['Max Hits'], inline: true },
+    {
+      name: 'Total Damage (%)',
+      value: arte['Total Damage (%)'],
+      inline: true
+    },
+    {
+      name: 'TP Cost',
+      value: arte['TP Cost'] ?? '-',
+      inline: true
+    });
+
   if (arte['Casting Time (seconds)']) {
     embed.addFields({
       name: 'Casting Time (seconds)',
       value: arte['Casting Time (seconds)']
     });
   }
+  embed.addFields({
+    name: 'Requirements', value: arte['Requirements'] ?? '-',
+  });
   return embed;
 }
 
