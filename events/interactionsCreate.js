@@ -1,5 +1,5 @@
 'use strict';
-const { Events, Collection } = require('discord.js');
+const { Events, Collection, MessageFlags } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 
 async function execute(interaction) {
@@ -47,7 +47,7 @@ async function execute(interaction) {
           + command.data.name
           + '. You can use it again '
           + `<t:${expiredTimeStamp}:R>`,
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
       });
       await wait(cooldownAmount);
       await interaction.deleteReply();
